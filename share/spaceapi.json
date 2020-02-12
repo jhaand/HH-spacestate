@@ -1,0 +1,28 @@
+    {
+	"api": "0.13",
+	"space": "TDvenlo",
+	"logo": "https://www.tdvenlo.nl/TDvenlo_logo.png",
+	"url": "https://www.tdvenlo.nl",
+	"location": {
+		"address": "Begijnengang 2, 5911 JL, Venlo, The Netherlands",
+		"lat": 51.36940,
+		"lon": 6.16998
+	},
+	"contact": {
+		"twitter": "@TDvenlo",
+		"email": "info@tdvenlo.nl",
+		"facebook": "https://www.facebook.com/TDvenlo/"
+	},
+	"issue_report_channels": [
+		"email"
+	],
+	"state": {
+		"open": false,
+		"icon": {
+			"open": "https://www.tdvenlo.nl/TDvenlo_logo_open.png",
+			"closed": "https://www.tdvenlo.nl/TDvenlo_logo_closed.png"
+		 },
+		"projects": [ "https://tdvenlo.nl/wiki/doku.php?id=start#projecten" ]
+		}
+	} 
+	

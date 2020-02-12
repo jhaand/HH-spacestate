@@ -1,15 +1,16 @@
 - Space state program for the Hacker Hotel Conference.
 
 inputs
-- Pulled-up input 
+- Switch            - Pulled-up input
 outputs
 - POST + power      - Green   -
 - Network available - Blue    - 
 - SPace State on    - Yellow  -
 
 files:
-setup.py
+boot.py
 main.py
+secrets.py
 secrets.py
 
 -- Installation
@@ -27,6 +28,13 @@ Communitcate with the prompt
     - Ctrl-B on a blank like goes to normal REPL mode.
     - Ctrl-C cancels any input, or interrupts the currently running code.
     - Ctrl-D on a blank line will do a soft reset.
+
+File transer
+===========
+Use adafruit-ampy
+
+install and upgrade:
+pip3 install adafruit-ampy --upgrade
 
 
 
