@@ -61,7 +61,7 @@ print("PHP: Space state status: $sstate\n");
 $spaceapi_file = fopen('./spaceapi2.json','w') or die ("Unable to open file!");
 fwrite($spaceapi_file, $spaceapi_json);
 fclose($spaceapi_file);
-print("PHP: spaceapi.json written");
+print("PHP: spaceapi.json written\n");
 ?>
 </pre>
 </body>
