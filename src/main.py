@@ -62,17 +62,36 @@ def set_json(state=False):
     print('State: ', state)
     r = requests.post(url, data=data, headers=headers)
     print(r.text)
+    r.close()
     return True
     
 # Initialize the space state
 space_state = read_switch()
 set_led_sstate(space_state)
+led_intern_state = 1
 _ = set_json(space_state)
 
 while True:
     space_state_old = space_state
+    led_intern_state_old = led_intern_state
     time.sleep(0.200)
     space_state = read_switch()
+    current_time = time.time()
+
+    # Set the state for the onboard LED based on the time
+    if (current_time % 7 == 0):
+        led_intern_state = 1
+    else:
+        led_intern_state = 0
+
+    # Change the output of the onboard LED based on the state
+    if led_intern_state_old != led_intern_state:
+        if led_intern_state == 1:
+            led_intern.on()
+        else:
+            led_intern.off()
+
+    # If the space state changes, do a lot of stuff. 
     if (space_state != space_state_old):
         print("State has changed to: ",str(space_state))
         set_led_sstate(space_state)
