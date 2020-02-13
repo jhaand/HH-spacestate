@@ -1,17 +1,17 @@
     {
 	"api": "0.13",
-	"space": "TDvenlo",
-	"logo": "https://www.tdvenlo.nl/TDvenlo_logo.png",
-	"url": "https://www.tdvenlo.nl",
+	"space": "Hacker Hotel",
+	"logo": "https://www.tdvenlo.nl/hh/HackerHotel_logo.png",
+	"url": "https://www.hackerhotel.nl",
 	"location": {
-		"address": "Begijnengang 2, 5911 JL, Venlo, The Netherlands",
-		"lat": 51.36940,
-		"lon": 6.16998
+		"address": "Oud Millingseweg 62, 3886MJ, Garderen, The Netherlands",
+		"lat": 52.2208671,
+		"lon": 5.7208085
 	},
 	"contact": {
-		"twitter": "@TDvenlo",
-		"email": "info@tdvenlo.nl",
-		"facebook": "https://www.facebook.com/TDvenlo/"
+		"twitter": "@hotelhacker",
+		"email": "info@hackerhotel.nl",
+		"facebook": "https://www.facebook.com/hackerhotel/"
 	},
 	"issue_report_channels": [
 		"email"
@@ -19,10 +19,10 @@
 	"state": {
 		"open": false,
 		"icon": {
-			"open": "https://www.tdvenlo.nl/TDvenlo_logo_open.png",
-			"closed": "https://www.tdvenlo.nl/TDvenlo_logo_closed.png"
+			"open": "https://www.tdvenlo.nl/hh/HH_logo_open.png",
+			"closed": "https://www.tdvenlo.nl/hh/HH_logo_closed.png"
 		 },
-		"projects": [ "https://tdvenlo.nl/wiki/doku.php?id=start#projecten" ]
+		"projects": [ "https://hackerhotel.nl/index.php/schedule-2020/" ]
 		}
 	} 
 	

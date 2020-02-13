@@ -2,6 +2,9 @@ import network
 import secrets
 import machine
 import time
+import ntptime 
+import ussl
+import urequests as requests
 
 print("SSID to connect to: " + secrets.wifi_SSID)
 #print("Password to use: " + secrets.wifi_passwd)
@@ -11,7 +14,7 @@ led_wifi = machine.Pin(17, machine.Pin.OUT)
 led_sstate = machine.Pin(16, machine.Pin.OUT)
 led_intern = machine.Pin(2, machine.Pin.OUT)
 
-led_switch = machine.Pin(39, machine.Pin.IN)
+in_switch = machine.Pin(39, machine.Pin.IN)
 
 
 # POST
@@ -39,10 +42,41 @@ def connect_wifi():
     led_wifi.on()
 
 connect_wifi()
+ntptime.settime()
+
+def read_switch(input=in_switch):
+    state = input.value()
+    return not state
+
+def set_led_sstate(state=False):
+    if state == True:
+        led_sstate.on()
+    else:
+        led_sstate.off()
+
+def set_json(state=False):
+    url = "https://zentraedi.nl/hh/Miejohb2.php"
+    headers = {'Content-Type': 'application/json'}
+    state = str(state).lower()
+    data = '{ "API_key":"%s", "sstate":"%s"} '% (secrets.API_key, state)
+    print('State: ', state)
+    r = requests.post(url, data=data, headers=headers)
+    print(r.text)
+    return True
+    
+# Initialize the space state
+space_state = read_switch()
+set_led_sstate(space_state)
+_ = set_json(space_state)
 
 while True:
-    led_intern.on()
-    time.sleep(0.5)
-    led_intern.off()
-    time.sleep(0.5)
+    space_state_old = space_state
+    time.sleep(0.200)
+    space_state = read_switch()
+    if (space_state != space_state_old):
+        print("State has changed to: ",str(space_state))
+        set_led_sstate(space_state)
+        _ = set_json(space_state)
+        time.sleep(3)
+        print("Waiting for new input")
 
