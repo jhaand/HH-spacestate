@@ -16,17 +16,6 @@ led_intern = machine.Pin(2, machine.Pin.OUT)
 
 in_switch = machine.Pin(39, machine.Pin.IN)
 
-
-# POST
-for led_output in [led_post, led_wifi, led_sstate, led_intern]:
-    led_output.on()
-    time.sleep(0.2)
-    led_output.off()
-
-time.sleep(0.5)
-led_post.on()
-print("POST Passed")
-
 # get wifi connection
 def connect_wifi():
     ap_if = network.WLAN(network.AP_IF)
@@ -40,9 +29,6 @@ def connect_wifi():
             time.sleep(1)
     print('Network config:', sta_if.ifconfig())
     led_wifi.on()
-
-connect_wifi()
-ntptime.settime()
 
 def read_switch(input=in_switch):
     state = input.value()
@@ -64,6 +50,24 @@ def set_json(state=False):
     print(r.text)
     r.close()
     return True
+
+# POST
+for led_output in [led_post, led_wifi, led_sstate, led_intern]:
+    led_output.on()
+    time.sleep(0.2)
+    led_output.off()
+
+time.sleep(0.5)
+led_post.on()
+print("POST Passed")
+
+connect_wifi()
+ntptime.settime()
+
+
+# Activate the watchdog
+wdt = machine.WDT(timeout=5000)
+wdt.feed()
     
 # Initialize the space state
 space_state = read_switch()
@@ -72,6 +76,7 @@ led_intern_state = 1
 _ = set_json(space_state)
 
 while True:
+    wdt.feed()
     space_state_old = space_state
     led_intern_state_old = led_intern_state
     time.sleep(0.200)
@@ -93,9 +98,14 @@ while True:
 
     # If the space state changes, do a lot of stuff. 
     if (space_state != space_state_old):
+        t = time.localtime()
+        strftime = name = '{:04d}-{:02d}-{:02d}T{:02d}:{:02d}:{:02d}'.format(t[0], t[1], t[2], t[3], t[4], t[5])
+        print("time: ", strftime)
         print("State has changed to: ",str(space_state))
         set_led_sstate(space_state)
         _ = set_json(space_state)
-        time.sleep(3)
+        for i in range(10):
+            time.sleep(0.3)
+            wdt.feed()
         print("Waiting for new input")
 
