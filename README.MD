@@ -1,5 +1,11 @@
 - Space state program for the Hacker Hotel Conference.
 
+Before deployment
+=================
+
+- Change Wifi for NodeMCU
+- Change output file spaceapi2.json to spaceapi.json on the server
+
 inputs
 - Switch            - Pulled-up input
 outputs
