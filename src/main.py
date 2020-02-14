@@ -41,7 +41,8 @@ def set_led_sstate(state=False):
         led_sstate.off()
 
 def set_json(state=False):
-    url = "https://zentraedi.nl/hh/Miejohb2.php"
+    #url = "https://zentraedi.nl/hh/Miejohb2.php"
+    url = "https://83.163.242.154/hh/Miejohb2.php"
     headers = {'Content-Type': 'application/json'}
     state = str(state).lower()
     data = '{ "API_key":"%s", "sstate":"%s"} '% (secrets.API_key, state)
