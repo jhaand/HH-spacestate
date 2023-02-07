@@ -2,19 +2,20 @@ import network
 import secrets
 import machine
 import time
-import ntptime 
+import ntptime
 import ussl
 import urequests as requests
 
 print("SSID to connect to: " + secrets.wifi_SSID)
-#print("Password to use: " + secrets.wifi_passwd)
+# print("Password to use: " + secrets.wifi_passwd)
 print("Password to use: " + 'NotGonnaTellYou')
-led_post = machine.Pin(21, machine.Pin.OUT)
-led_wifi = machine.Pin(17, machine.Pin.OUT)
-led_sstate = machine.Pin(16, machine.Pin.OUT)
+led_post = machine.Pin(21, machine.Pin.OUT)    # Red
+led_wifi = machine.Pin(17, machine.Pin.OUT)    # Blue
+led_sstate = machine.Pin(16, machine.Pin.OUT)  # Yellow
 led_intern = machine.Pin(2, machine.Pin.OUT)
 
 in_switch = machine.Pin(39, machine.Pin.IN)
+
 
 # get wifi connection
 def connect_wifi():
@@ -24,33 +25,37 @@ def connect_wifi():
     if not sta_if.isconnected():
         print('Connecting to Wifi')
         sta_if.active(True)
-        sta_if.connect(secrets.wifi_SSID,secrets.wifi_passwd)
+        sta_if.connect(secrets.wifi_SSID, secrets.wifi_passwd)
         while not sta_if.isconnected():
             time.sleep(1)
     print('Network config:', sta_if.ifconfig())
     led_wifi.on()
 
+
 def read_switch(input=in_switch):
     state = input.value()
     return not state
 
+
 def set_led_sstate(state=False):
-    if state == True:
+    if state is True:
         led_sstate.on()
     else:
         led_sstate.off()
 
+
 def set_json(state=False):
-    #url = "https://zentraedi.nl/hh/Miejohb2.php"
+    # url = "https://zentraedi.nl/hh/Miejohb2.php"
     url = "https://83.163.242.154/hh/Miejohb2.php"
     headers = {'Content-Type': 'application/json'}
     state = str(state).lower()
-    data = '{ "API_key":"%s", "sstate":"%s"} '% (secrets.API_key, state)
+    data = '{ "API_key":"%s", "sstate":"%s"} ' % (secrets.API_key, state)
     print('State: ', state)
     r = requests.post(url, data=data, headers=headers)
     print(r.text)
     r.close()
     return True
+
 
 # POST
 for led_output in [led_post, led_wifi, led_sstate, led_intern]:
@@ -69,7 +74,7 @@ ntptime.settime()
 # Activate the watchdog
 wdt = machine.WDT(timeout=5000)
 wdt.feed()
-    
+
 # Initialize the space state
 space_state = read_switch()
 set_led_sstate(space_state)
@@ -102,11 +107,10 @@ while True:
         t = time.localtime()
         strftime = name = '{:04d}-{:02d}-{:02d}T{:02d}:{:02d}:{:02d}'.format(t[0], t[1], t[2], t[3], t[4], t[5])
         print("time: ", strftime)
-        print("State has changed to: ",str(space_state))
+        print("State has changed to: ", str(space_state))
         set_led_sstate(space_state)
         _ = set_json(space_state)
         for i in range(10):
             time.sleep(0.3)
             wdt.feed()
         print("Waiting for new input")
-

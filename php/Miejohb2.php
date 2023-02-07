@@ -8,7 +8,7 @@ This is the update script for the HackerHotel Spaceapi.json.
 <pre>
 <?php 
 print("PHP: Hi NodeMCU. \n");
-include("124secretsss.php"); 
+include("secretsss.php"); 
 $_POST = json_decode(file_get_contents('php://input'), true);
 //print_r($_POST);
 $read_key = substr(trim($_POST['API_key']),0,128);
@@ -26,6 +26,7 @@ if ($sstate == 'true') {
 $spaceapi_json = <<<EOT
 {
 "api": "0.13",
+"api_compatibility": ["14"],
 "space": "Hacker Hotel",
 "logo": "https://www.tdvenlo.nl/hh/HackerHotel_logo.png",
 "url": "https://www.hackerhotel.nl",
