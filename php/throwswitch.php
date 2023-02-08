@@ -11,6 +11,8 @@ print("PHP: Hi NodeMCU. \n");
 
 # You can use a temporary name for testing puroposes.
 $spaceapi_filename = './spaceapi2.json';
+$current_time = time();
+print("Time: $current_time");
 
 # Get the API_key from an file not controlled by Git.
 include("secretsss.php"); 
@@ -53,6 +55,7 @@ $spaceapi_json = <<<EOT
 ],
 "state": {
     "open": $sstate,
+    "lastchange": $current_time,
     "icon": {
         "open": "http://hackerhotel.tdvenlo.nl/img/HH_logo_open.png",
         "closed": "http://hackerhotel.tdvenlo.nl/img/HH_logo_closed.png"
