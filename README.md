@@ -15,7 +15,10 @@ Check the password.
 Put the php files on the server. 
 
 Check with `curl`
-
+You can address the writing of the spaceapi file with the following Curl command:
+```
+curl http://hackerhotel.tdvenlo.nl/throwswitch.php -X POST -H "Content-Type: application/json" -d '{"API_key":"ff_teste", "sstate":"true"}'
+```
 
 ## Micropython
 

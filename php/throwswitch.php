@@ -8,12 +8,21 @@ This is the update script for the HackerHotel Spaceapi.json.
 <pre>
 <?php 
 print("PHP: Hi NodeMCU. \n");
+
+# You can use a temporary name for testing puroposes.
+$spaceapi_filename = './spaceapi2.json';
+
+# Get the API_key from an file not controlled by Git.
 include("secretsss.php"); 
+if (empty($API_key)) {
+	die("Secrets not loaded\n");
+}
+
 $_POST = json_decode(file_get_contents('php://input'), true);
-//print_r($_POST);
+#print_r($_POST);
 $read_key = substr(trim($_POST['API_key']),0,128);
-$sstate = $_POST['sstate'] ;
-/*
+$sstate = substr(trim($_POST['sstate']),0,10) ;
+
 if ($sstate == 'true') {
     $sstate = 'true';
     print("PHP: SSTATE is True\n");
@@ -21,14 +30,13 @@ if ($sstate == 'true') {
     $sstate = 'false';
     print("PHP: SSTATE is False\n");
     }
-*/
  
 $spaceapi_json = <<<EOT
 {
 "api": "0.13",
 "api_compatibility": ["14"],
 "space": "Hacker Hotel",
-"logo": "https://www.tdvenlo.nl/hh/HackerHotel_logo.png",
+"logo": "http://hackerhotel.tdvenlo.nl/img/HackerHotel_logo.png",
 "url": "https://www.hackerhotel.nl",
 "location": {
     "address": "Oud Millingseweg 62, 3886MJ, Garderen, The Netherlands",
@@ -46,23 +54,28 @@ $spaceapi_json = <<<EOT
 "state": {
     "open": $sstate,
     "icon": {
-        "open": "https://www.tdvenlo.nl/hh/HH_logo_open.png",
-        "closed": "https://www.tdvenlo.nl/hh/HH_logo_closed.png"
+        "open": "http://hackerhotel.tdvenlo.nl/img/HH_logo_open.png",
+        "closed": "http://hackerhotel.tdvenlo.nl/img/HH_logo_closed.png"
      },
-    "projects": [ "https://hackerhotel.nl/index.php/schedule-2020/" ]
+    "projects": [ "https://pretalx.hackerhotel.nl/hackerhotel-2023/schedule/" ]
     }
 } 
 EOT;
+# print("read_key: $read_key\n");
+# print("API_key: $API_key\n");
 
 if ($read_key != $API_key) {
-    die("Wrong key");
+    die("Wrong key\n");
 }
+
 print("PHP: We got the right key\n");
 print("PHP: Space state status: $sstate\n");
-$spaceapi_file = fopen('./spaceapi2.json','w') or die ("Unable to open file!");
+
+# Write the actual spaceapi.json
+$spaceapi_file = fopen($spaceapi_filename, 'w') or die ("Unable to open file!");
 fwrite($spaceapi_file, $spaceapi_json);
 fclose($spaceapi_file);
-print("PHP: spaceapi.json written\n");
+print("PHP: $spaceapi_filename written\n");
 ?>
 </pre>
 </body>

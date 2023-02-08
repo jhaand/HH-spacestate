@@ -1,0 +1,28 @@
+{
+"api": "0.13",
+"api_compatibility": ["14"],
+"space": "Hacker Hotel",
+"logo": "http://hackerhotel.tdvenlo.nl/img/HackerHotel_logo.png",
+"url": "https://www.hackerhotel.nl",
+"location": {
+    "address": "Oud Millingseweg 62, 3886MJ, Garderen, The Netherlands",
+    "lat": 52.2208671,
+    "lon": 5.7208085
+},
+"contact": {
+    "twitter": "@hotelhacker",
+    "email": "info@hackerhotel.nl",
+    "facebook": "https://www.facebook.com/hackerhotel/"
+},
+"issue_report_channels": [
+    "email"
+],
+"state": {
+    "open": false,
+    "icon": {
+        "open": "https://hackerhotel.tdvenlo.nl/img/HH_logo_open.png",
+        "closed": "https://hackerhotel.tdvenlo.nl/img/HH_logo_closed.png"
+     },
+    "projects": [ "https://pretalx.hackerhotel.nl/hackerhotel-2023/schedule/" ]
+    }
+} 
