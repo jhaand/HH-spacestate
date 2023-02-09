@@ -5,9 +5,18 @@ import time
 import ntptime
 import urequests as requests
 
+hostname_str = "spacestate"
+
+print("\
+\n|-----------------------------------------------------------------------|")
+print("Welcome to the Hacker Hotel 2023 spacestate.")
+print("Author: Jelle Haandrikman @jhaand")
+print("Source: https://gitlab.com/jhaand/hacker-hotel-space-state")
+print("Licence: GPL3 \n")
 print("SSID to connect to: " + secrets.wifi_SSID)
 # print("Wifi Key to use: " + secrets.wifi_passwd)
 print("Wifi Key to use: " + 'NotGonnaTellYou')
+
 
 # Define the GPIO pins.
 led_post = machine.Pin(21, machine.Pin.OUT)    # Red
@@ -24,12 +33,17 @@ def connect_wifi():
     ap_if.active(False)
     sta_if = network.WLAN(network.STA_IF)
     if not sta_if.isconnected():
-        print('Connecting to Wifi')
+        print('Connecting to Wifi: ', end="")
         sta_if.active(True)
+        time.sleep_us(100)
+        sta_if.config(dhcp_hostname=hostname_str)
         sta_if.connect(secrets.wifi_SSID, secrets.wifi_passwd)
         while not sta_if.isconnected():
+            print('.', end="")
             time.sleep(1)
+    print("*")
     print('Network config:', sta_if.ifconfig())
+    print('hostname:', sta_if.config('dhcp_hostname'), '\n')
     led_wifi.on()
 
 
@@ -64,12 +78,12 @@ for led_output in [led_post, led_wifi, led_sstate, led_intern]:
     time.sleep(0.2)
     led_output.off()
 
-time.sleep(0.5)
+time.sleep(0.3)
 led_post.on()
 print("POST Passed")
 
 connect_wifi()
-time.sleep(0.5)
+time.sleep(0.3)
 ntptime.settime()
 
 # Activate the watchdog
