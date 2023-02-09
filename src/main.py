@@ -3,7 +3,6 @@ import secrets
 import machine
 import time
 import ntptime
-import ussl
 import urequests as requests
 
 print("SSID to connect to: " + secrets.wifi_SSID)
