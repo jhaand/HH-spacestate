@@ -40,7 +40,7 @@ a NodeMCU with some extra components.
 
 Check the password.
 
-Put the php files on the server. 
+Put the *.php files from the `./php/` folder on the server. 
 
 Check with `curl`
 You can address the writing of the spaceapi file with the following Curl command:
@@ -61,9 +61,10 @@ The tools in this repository use `./esp32-20220618-v1.19.1.bin` binary to upload
 
 Get a big switch, LEDs and some 330R resistors. 
 
-| Inputs:            | Function               | GPIO pin |
+| Inputs             | Function               | GPIO pin |
 |--------------------|------------------------|----|
 |  Switch            | Pulled-up input        | 39 | 
+
 | Outputs            |                        |    |
 |--------------------|------------------------|----|
 | POST + power       | Green LED              | 21 |
@@ -72,9 +73,11 @@ Get a big switch, LEDs and some 330R resistors.
 | Internal LED       | Onboard                | 2  |
 
 files in the `./src/` directory:
+```
 boot.py  
 main.py  
 secrets.py  
+```
 
 ### Installation
 Make sure you have the following tools:

@@ -1,3 +1,3 @@
 <?php
-$API_key = 'MakeYour0wnKeyr'
+$API_key = 'DoNotUseDef34lt_Key'
 ?>
