@@ -1,3 +1,3 @@
 <?php
-$API_KEY = 'MakeYour0wnKeyr'
+$API_key = 'MakeYour0wnKeyr'
 ?>

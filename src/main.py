@@ -7,12 +7,14 @@ import ussl
 import urequests as requests
 
 print("SSID to connect to: " + secrets.wifi_SSID)
-# print("Password to use: " + secrets.wifi_passwd)
-print("Password to use: " + 'NotGonnaTellYou')
+# print("Wifi Key to use: " + secrets.wifi_passwd)
+print("Wifi Key to use: " + 'NotGonnaTellYou')
+
+# Define the GPIO pins.
 led_post = machine.Pin(21, machine.Pin.OUT)    # Red
-led_wifi = machine.Pin(17, machine.Pin.OUT)    # Blue
+led_wifi = machine.Pin(4, machine.Pin.OUT)     # Blue
 led_sstate = machine.Pin(16, machine.Pin.OUT)  # Yellow
-led_intern = machine.Pin(2, machine.Pin.OUT)
+led_intern = machine.Pin(2, machine.Pin.OUT)   # Onboard
 
 in_switch = machine.Pin(39, machine.Pin.IN)
 
@@ -45,8 +47,8 @@ def set_led_sstate(state=False):
 
 
 def set_json(state=False):
-    # url = "https://zentraedi.nl/hh/Miejohb2.php"
-    url = "https://83.163.242.154/hh/Miejohb2.php"
+    print("Contacting host with new space state ")
+    url = "https://hackerhotel.tdvenlo.nl/throwswitch.php"
     headers = {'Content-Type': 'application/json'}
     state = str(state).lower()
     data = '{ "API_key":"%s", "sstate":"%s"} ' % (secrets.API_key, state)
@@ -68,11 +70,11 @@ led_post.on()
 print("POST Passed")
 
 connect_wifi()
+time.sleep(0.5)
 ntptime.settime()
 
-
 # Activate the watchdog
-wdt = machine.WDT(timeout=5000)
+wdt = machine.WDT(timeout=42000)
 wdt.feed()
 
 # Initialize the space state

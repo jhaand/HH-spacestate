@@ -2,11 +2,39 @@
 
 Space state program for the Hacker Hotel Conference.
 
-This repository allows for a simple mobile space state switch. Using a NodeMCU 
-ESP32, Micropython and some PHP.
+This repository allows for a simple mobile space state switch. Using a NodeMCU
+ESP32, Micropython and some PHP. This mostly describes the workflow under
+Linux. For other operating systems you will need to do some extra steps.
 
-If you want to deploy a permanent space state switch, you can do so via the 
-information on https://spaceapi.io. 
+## Why do this project
+Many Hackerspaces have a big switch to tell the whole internet if they're open
+or closed. It's called a spacestate. This is also a nice project that handles
+the whole chain of an IoT project. It contains a sensor, middleware and cloud.
+This project only entails the sensor and middleware part of a spacestate.
+
+In 2020 we found it a fun idea to deploy a mobile spacestate switch for the
+Hacker Hotel conference. So I hacked something simple together with an ESP32,
+Micropython and PHP. I asked Dave Borghuis to adapt the website
+http://hackerspaces.nl to show Hacker Hotel. We presented the switch during the
+opening of the event and Dimitri Modderman (the organizer) was pleasantly
+surprised. \
+After a couple of years, Dave Borghuis from Tkkrlab asked me to
+document this project. And here we are. Just before Hacker Hotel 2023 and we
+need an update for the spacestate switch.
+
+My main focus is to get it operational again. I hope to find the time to
+improve the documentation during the event.
+
+If you want to deploy a permanent space state switch that also connect to the
+cloud, you can do so via the information on https://spaceapi.io. 
+
+You can then find it back on the big map of the Earth at https://mapall.space 
+or in the Android App 'MyHackerspace'.
+
+## Preparation
+
+Clone this archive. Get a website to deploy the spaceapi.json and PHP files and
+a NodeMCU with some extra components.
 
 ## PHP files
 
@@ -31,46 +59,67 @@ The tools in this repository use `./esp32-20220618-v1.19.1.bin` binary to upload
 
 ### Hardware
 
-Inputs:
- - Switch            - Pulled-up input -
-Outputs:
- - POST + power      - Green   -
- - Network available - Blue    - 4
- - SPace State on    - Yellow  -
+Get a big switch, LEDs and some 330R resistors. 
 
-files:
-boot.py
-main.py
-secrets.py
+| Inputs:            | Function               | GPIO pin |
+|--------------------|------------------------|----|
+|  Switch            | Pulled-up input        | 39 | 
+| Outputs            |                        |    |
+|--------------------|------------------------|----|
+| POST + power       | Green LED              | 21 |
+| Network available  | Blue  LED              | 4  |
+| Space State on     | Yellow LED             | 16 |
+| Internal LED       | Onboard                | 2  |
+
+files in the `./src/` directory:
+boot.py  
+main.py  
+secrets.py  
 
 ### Installation
 Make sure you have the following tools:
 
- - Espotool.py
+ - esptool.py
+ - rshell for communicating with Micropython. https://github.com/dhylands/rshell
  - Picocom or other terminal emulator
- - adafruit-ampy 
 
-Use the program `./tools/erase_and_flash.sh` and then upload the code via `./tools/upload.sh`.
+You will need to install the rshell program to communicate easily with
+Micropython.  
+Install it with `pip3 install rshell`. 
 
-If the script doesn't work you can manually erase and flash the NodeMCU with the following commands.
-Erase the board
-```esptool.py --chip esp32 --port /dev/ttyUSB0 erase_flash
-esptool.py --chip esp32 --port /dev/ttyUSB0 --baud 460800 write_flash -z 0x1000 esp32-idf3-20200212-v1.12-164-g7679e3be9.bin
+Esptool will handle everything with erasing and programming Micropython on the 
+NodeMCU.   
+Install it with `pip3 install esptool`. 
+
+### Installing Micropython on the NodeMCU
+
+Use the program `./tools/erase_and_flash.sh` and then upload the 
+code via `./tools/upload.sh`.
+
+If the script doesn't work you can manually erase and flash the NodeMCU 
+with the following commands.
+Erase and program the board: \
 ```
-Communitcate with the prompt
+esptool.py --chip esp32 --port /dev/ttyUSB0 erase_flash
+esptool.py --chip esp32 --port /dev/ttyUSB0 --baud 460800 write_flash ./esp32-20220618-v1.19.1.bin
+```
+More info on: https://micropython.org/download/esp32/
 
-'''picocom /dev/ttyUSB0 -b115200'''
+### Communicate with the prompt
 
-    - Ctrl-A on a blank line will enter raw REPL mode. This is like a permanent paste mode, except that characters are not echoed back.
-    - Ctrl-B on a blank like goes to normal REPL mode.
-    - Ctrl-C cancels any input, or interrupts the currently running code.
-    - Ctrl-D on a blank line will do a soft reset.
+You can easily communicate with the NodeMCU to see what's going on via the script `./tools/console.sh`.
+or use a normal serial communication program. 
+
+Otherwise use a regular serial communication program like picocom. \
+'''picocom /dev/ttyUSB0 -b 115200'''
+
+ - Ctrl-A on a blank line will enter raw REPL mode. This is like a permanent paste mode, except that characters are not echoed back.
+ - Ctrl-B on a blank like goes to normal REPL mode.
+ - Ctrl-C cancels any input, or interrupts the currently running code.
+ - Ctrl-D on a blank line will do a soft reset.
 
 ### File transer
-Use adafruit-ampy
-
-install and upgrade:
-pip3 install adafruit-ampy --upgrade
+File transfer and communication occurs also via rshell. See the script `./tools/upload.sh`
 
 ## Before Deployment
 
@@ -82,5 +131,8 @@ pip3 install adafruit-ampy --upgrade
 - Power up the NodeMCU.
 - Change output file spaceapi2.json to spaceapi.json on the server in the PHP file.
 
+And that's all there is for now.
 
+You can upgrade the PHP files with a web based remote control form in case of a
+pandemic lockdown. Or base the spacestate switch on ESPhome and Home-Assistant.
 
