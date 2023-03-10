@@ -6,6 +6,11 @@ This repository allows for a simple mobile space state switch. Using a NodeMCU
 ESP32, Micropython and some PHP. This mostly describes the workflow under
 Linux. For other operating systems you will need to do some extra steps.
 
+## Original archive
+This repository is hosted on https://gitlab.com/jhaand/hacker-hotel-space-state/
+The repository on Github is only used as a mirror for promotion and discovery purposes. 
+All submitted Issues and PR's need to go via the original repository mentioned above. 
+
 ## Why do this project
 Many Hackerspaces have a big switch to tell the whole internet if they're open
 or closed. It's called a spacestate. This is also a nice project that handles
