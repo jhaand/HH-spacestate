@@ -66,7 +66,7 @@ The tools in this repository use `./esp32-20220618-v1.19.1.bin` binary to upload
 
 Get a big switch, LEDs, some 330R resistors and a 4.7k resistor. 
 See the schematic in the `electric_circuit` directory here:
-[link](https://gitlab.com/jhaand/hacker-hotel-space-state/electric_circuit/circuit_diagram.pdf).
+[link](https://gitlab.com/jhaand/hacker-hotel-space-state/-/blob/main/electric_circuit/circuit_diagram.pdf).
 
 Connect the peripherals as follows.
 
