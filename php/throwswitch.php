@@ -11,6 +11,8 @@ print("PHP: Hi NodeMCU. \n");
 
 # You can use a temporary name for testing puroposes.
 $spaceapi_filename = './spaceapi2.json';
+$spacestate_filename = './spacestate.php';
+
 $current_time = time();
 print("Time: $current_time\n");
 
@@ -32,6 +34,16 @@ if ($sstate == 'true') {
     $sstate = 'false';
     print("PHP: SSTATE is False\n");
     }
+
+# print("read_key: $read_key\n");
+# print("API_key: $API_key\n");
+
+if ($read_key != $API_key) {
+    die("Wrong key\n");
+}
+
+print("PHP: We got the right key\n");
+print("PHP: Space state status: $sstate\n");
  
 $spaceapi_json = <<<EOT
 {
@@ -60,25 +72,30 @@ $spaceapi_json = <<<EOT
         "open": "http://hackerhotel.tdvenlo.nl/img/HH_logo_open.png",
         "closed": "http://hackerhotel.tdvenlo.nl/img/HH_logo_closed.png"
      },
-    "projects": [ "https://pretalx.hackerhotel.nl/hackerhotel-2023/schedule/" ]
+    "projects": [ "https://pretalx.hackerhotel.nl/hackerhotel-2024/schedule/" ]
     }
 } 
 EOT;
-# print("read_key: $read_key\n");
-# print("API_key: $API_key\n");
-
-if ($read_key != $API_key) {
-    die("Wrong key\n");
-}
-
-print("PHP: We got the right key\n");
-print("PHP: Space state status: $sstate\n");
 
 # Write the actual spaceapi.json
-$spaceapi_file = fopen($spaceapi_filename, 'w') or die ("Unable to open file!");
+$spaceapi_file = fopen($spaceapi_filename, 'w') or die ("PHP: Unable to open $spaceapi_filename file!");
 fwrite($spaceapi_file, $spaceapi_json);
 fclose($spaceapi_file);
 print("PHP: $spaceapi_filename written\n");
+
+# Update the index.php with the actual state.
+$spacestate_html = <<< EOT
+<p>The space is closed!</p>
+<p><img src="./img/HH_logo_closed.png"></p>
+EOT;
+
+# update the file for the index.html
+print("PHP: write the spacestate file.\n");
+$spacestate_file = fopen($spacestate_filename, 'w') or die ("PHP: Unable to $spacestate_filename open file!");
+fwrite($spacestate_file, $spacestate_html);
+fclose($spacestate_file);
+print("PHP: $spacestate_filename written\n");
+
 ?>
 </pre>
 </body>
