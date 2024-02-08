@@ -79,7 +79,7 @@ $spaceapi_json = <<<EOT
 EOT;
 
 # Write the actual spaceapi.json
-$spaceapi_file = fopen($spaceapi_filename, 'w') or die ("PHP: Unable to open $spaceapi_filename file!");
+$spaceapi_file = fopen($spaceapi_filename, 'w') or die ("PHP: Unable to open '$spaceapi_filename' file!");
 fwrite($spaceapi_file, $spaceapi_json);
 fclose($spaceapi_file);
 print("PHP: $spaceapi_filename written\n");
@@ -103,7 +103,7 @@ EOT;
 
 # update the file for the index.html
 print("PHP: write the spacestate file.\n");
-$spacestate_file = fopen($spacestate_filename, 'w') or die ("PHP: Unable to $spacestate_filename open file!");
+$spacestate_file = fopen($spacestate_filename, 'w') or die ("PHP: Unable to open '$spacestate_filename' file!");
 fwrite($spacestate_file, $spacestate_html);
 fclose($spacestate_file);
 print("PHP: $spacestate_filename written\n");
