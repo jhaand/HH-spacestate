@@ -10,6 +10,7 @@
     "lon": 5.7208085
 },
 "contact": {
+    "mastodon": "@hackerhotel@hsnl.social",
     "twitter": "@hotelhacker",
     "email": "info@hackerhotel.nl",
     "facebook": "https://www.facebook.com/hackerhotel/"
@@ -19,10 +20,11 @@
 ],
 "state": {
     "open": false,
+    "lastchange": 1676218494,
     "icon": {
-        "open": "https://hackerhotel.tdvenlo.nl/img/HH_logo_open.png",
-        "closed": "https://hackerhotel.tdvenlo.nl/img/HH_logo_closed.png"
+        "open": "http://hackerhotel.tdvenlo.nl/img/HH_logo_open.png",
+        "closed": "http://hackerhotel.tdvenlo.nl/img/HH_logo_closed.png"
      },
-    "projects": [ "https://pretalx.hackerhotel.nl/hackerhotel-2023/schedule/" ]
+    "projects": [ "https://pretalx.hackerhotel.nl/hackerhotel-2024/schedule/" ]
     }
 } 

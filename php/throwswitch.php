@@ -58,6 +58,7 @@ $spaceapi_json = <<<EOT
     "lon": 5.7208085
 },
 "contact": {
+    "mastodon: "@hackerhotel@hsnl.social",
     "twitter": "@hotelhacker",
     "email": "info@hackerhotel.nl",
     "facebook": "https://www.facebook.com/hackerhotel/"
@@ -84,9 +85,20 @@ fclose($spaceapi_file);
 print("PHP: $spaceapi_filename written\n");
 
 # Update the index.php with the actual state.
+if ($sstate == 'true') {
+    $space_access = "OPEN";
+    $space_img = "./img/HH_logo_open.png";
+    } else {
+    $space_access = "CLOSED";
+    $space_img = "./img/HH_logo_closed.png";
+    }
+
 $spacestate_html = <<< EOT
-<p>The space is closed!</p>
-<p><img src="./img/HH_logo_closed.png"></p>
+<!-- included spacestate file begin -->
+        <p>The space is $space_access!</p>
+        <p><img src=$space_img></p>
+<!-- included spacestate file end-->
+
 EOT;
 
 # update the file for the index.html
