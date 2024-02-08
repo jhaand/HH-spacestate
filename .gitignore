@@ -2,3 +2,6 @@
 **/*.swp
 src/secrets.py
 php/secretsss.php
+php/spaceapi2.json
+php/spacestate.php
+
