@@ -49,7 +49,7 @@ Check the password.
 Put the *.php files from the `./php/` folder on the server.  \
 Put the *.png files from the `./share/` folder on the server. 
 
-Or use the installation script from the `./tool/php_install.sh` to set up all
+Or use the installation script `./tool/php_install.sh` to set up all
 the files automatically.
 
 Check with `curl`
