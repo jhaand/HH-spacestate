@@ -58,7 +58,7 @@ $spaceapi_json = <<<EOT
     "lon": 5.7208085
 },
 "contact": {
-    "mastodon: "@hackerhotel@hsnl.social",
+    "mastodon": "@hackerhotel@hsnl.social",
     "twitter": "@hotelhacker",
     "email": "info@hackerhotel.nl",
     "facebook": "https://www.facebook.com/hackerhotel/"
